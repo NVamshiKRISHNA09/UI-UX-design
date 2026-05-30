@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraHealth Care Patient Portal - Redesigned & Accessible</title>
+  <!-- Modern Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Accessibility Control Bar (WCAG & Human-Centered Design standard) -->
+    <div class="accessibility-bar" role="toolbar" aria-label="Accessibility Utilities">
+      <div class="acc-controls">
+        <span>Accessibility Utilities:</span>
+        <button id="toggle-contrast" class="acc-btn" aria-pressed="false">High Contrast: OFF</button>
+        <div style="display: inline-flex; align-items: center; gap: 0.25rem; margin-left: 0.5rem;">
+          <span>Text Scaling:</span>
+          <button id="text-scale-dn" class="acc-btn" aria-label="Decrease text size">A-</button>
+          <button id="text-scale-reset" class="acc-btn" aria-label="Reset text size">Normal</button>
+          <button id="text-scale-up" class="acc-btn" aria-label="Increase text size">A+</button>
+        </div>
+      </div>
+      <div class="clinical-urgency">
+        <span>Clinical Emergency? Dial <strong>911</strong> or click</span>
+        <a href="tel:911" class="acc-btn" style="background-color: var(--error-color); border:none; text-decoration:none; margin-left: 0.5rem; font-weight: 700;">Emergency Call</a>
+      </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="app-header">
+      <div class="logo-section">
+        <div class="logo-icon" aria-hidden="true">
+          <!-- Cross symbol SVG -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </div>
+        <span class="logo-text">AURAHEALTH</span>
+      </div>
+
+      <nav class="nav-tabs" role="tablist" aria-label="Portal views">
+        <button class="nav-tab active" data-target="dashboard" role="tab" aria-selected="true" aria-controls="dashboard-view">Dashboard</button>
+        <button class="nav-tab" data-target="booking" role="tab" aria-selected="false" aria-controls="booking-view">Book Consultation</button>
+        <button class="nav-tab" data-target="records" role="tab" aria-selected="false" aria-controls="records-view">Medical Records</button>
+        <button class="nav-tab" data-target="billing" role="tab" aria-selected="false" aria-controls="billing-view">Prescriptions & Billing</button>
+      </nav>
+
+      <div class="user-profile">
+        <span style="font-weight: 600; font-size: 0.9rem;" id="user-display-name">Eleanor Vance</span>
+        <div style="width: 2.2rem; height: 2.2rem; border-radius: 50%; background-color: var(--primary-color); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem;" aria-label="Profile Avatar">
+          EV
+        </div>
+      </div>
+    </header>
+
+    <!-- Main App Body views -->
+    <main class="app-main">
+      
+      <!-- ========================================== -->
+      <!-- VIEW 1: DASHBOARD                          -->
+      <!-- ========================================== -->
+      <section id="dashboard-view" class="view-section active">
+        <div class="view-header">
+          <div class="view-title-group">
+            <h1 class="view-main-title">Patient Portal Dashboard</h1>
+            <span class="view-subtitle">Select a service block below to manage your healthcare journey.</span>
+          </div>
+        </div>
+
+        <!-- 4 Card Group (Miller's Law 7+-2 grouping compliance) -->
+        <div class="dashboard-grid">
+          
+          <!-- Card A: Appointments -->
+          <div class="dashboard-card">
+            <div class="card-header-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </div>
+            <h2 class="card-title">Bookings & Consultations</h2>
+            <p class="card-description">Schedule telehealth or clinic visits with specialists, review upcoming appointments, and update pre-visit questionnaires.</p>
+            <div class="quick-list">
+              <div class="quick-item">
+                <span class="quick-item-title">Dr. Sandra Patel (Cardiology)</span>
+                <span class="quick-item-meta">Needs Scheduling</span>
+              </div>
+            </div>
+            <button id="db-book-btn" class="btn btn-primary">Schedule Appointment</button>
+          </div>
+
+          <!-- Card B: Medical Records -->
+          <div class="dashboard-card">
+            <div class="card-header-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <h2 class="card-title">My Medical Records</h2>
+            <p class="card-description">View diagnostic laboratory reports, immunization logs, prescription medical history, and summary physician notes.</p>
+            <div class="quick-list">
+              <div class="quick-item" style="border-left-color: var(--error-color);">
+                <span class="quick-item-title">Lipid Panel (Dec 2026)</span>
+                <span class="quick-item-meta" style="color: var(--error-color); font-weight:700;">Abnormal Results</span>
+              </div>
+            </div>
+            <button id="db-records-btn" class="btn btn-secondary">Review Lab Records</button>
+          </div>
+
+          <!-- Card C: Billing & Refills -->
+          <div class="dashboard-card">
+            <div class="card-header-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                <line x1="2" y1="10" x2="22" y2="10"></line>
+              </svg>
+            </div>
+            <h2 class="card-title">Billing & Refill Hub</h2>
+            <p class="card-description">Refill recurring prescriptions, update insurance policies, view outstanding balances, and settle patient copays.</p>
+            <div class="quick-list">
+              <div class="quick-item">
+                <span class="quick-item-title">Lisinopril 10mg Refill</span>
+                <span class="quick-item-meta">1 Copay Pending</span>
+              </div>
+            </div>
+            <button id="db-refill-btn" class="btn btn-secondary">Renew & Pay Balance</button>
+          </div>
+
+          <!-- Card D: Nurse Support Hotline -->
+          <div class="dashboard-card" style="background-color: rgba(13, 148, 136, 0.02); border-color: rgba(13, 148, 136, 0.15);">
+            <div class="card-header-icon" style="background-color: rgba(13, 148, 136, 0.1); color: var(--secondary-color);" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </div>
+            <h2 class="card-title">24/7 Clinical Nurse Chat</h2>
+            <p class="card-description">Unsure about symptoms or prescription dosages? Speak directly with a registered clinical nurse in a secure live chat session.</p>
+            <div class="quick-list">
+              <div class="quick-item" style="border-left-color: var(--secondary-color);">
+                <span class="quick-item-title">Nurse Line Status</span>
+                <span class="quick-item-meta" style="color: var(--success-color); font-weight:700;">🟢 Online</span>
+              </div>
+            </div>
+            <button class="btn btn-outline" onclick="alert('Starting clinical nurse secure chat panel (Simulated Feature)...')">Start Live Chat</button>
+          </div>
+
+        </div>
+
+        <div class="nurse-banner">
+          <div>
+            <span class="nurse-banner-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+              Note on Clinical Security
+            </span>
+            <span class="nurse-banner-desc">This digital health environment is HIPAA compliant. All interactions and medical files are encrypted.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 2: BOOKING SYSTEM                     -->
+      <!-- ========================================== -->
+      <section id="booking-view" class="view-section">
+        <div class="view-header">
+          <div class="view-title-group">
+            <h1 class="view-main-title">Telehealth Consultation Booking</h1>
+            <span class="view-subtitle">Select an available appointment time with your referred specialist.</span>
+          </div>
+          <button class="btn btn-outline" style="width: auto;" onclick="document.querySelector('[data-target=dashboard]').click()">Back to Dashboard</button>
+        </div>
+
+        <!-- Doctor details profile card -->
+        <div class="doctor-profile-card">
+          <div class="doctor-avatar-circle" aria-hidden="true">SP</div>
+          <div class="doctor-details">
+            <span class="doctor-specialty">Referred Specialist</span>
+            <h2 class="doctor-name">Dr. Sandra Patel</h2>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+              Cardiovascular Disease & Hypertension Specialist  
+              <br>📍 AuraHealth Central Medical Offices
+            </p>
+          </div>
+        </div>
+
+        <!-- Redesigned Grid Picker (Jakob's Law compliance) -->
+        <div class="calendar-container">
+          <div class="calendar-header">
+            <h3>Select a Date & Time slot (Week of June 1, 2026)</h3>
+            <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted);">*Only active days with openings are selectable</span>
+          </div>
+
+          <!-- Weekly grid calendar -->
+          <div class="week-grid" role="group" aria-label="Appointment days selection">
+            <!-- Rendered via Javascript -->
+          </div>
+
+          <!-- Time slots sub-grid -->
+          <div id="time-slots-container" class="time-slots-container" style="display: none;">
+            <h4 id="selected-date-text" style="font-weight: 700; color: var(--text-primary);">Selected date: Tuesday, June 2, 2026</h4>
+            <div id="time-slots-grid" class="time-slots-grid" role="group" aria-label="Time slots list">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Booking Actions CTA -->
+          <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; display: flex; justify-content: flex-end;">
+            <!-- Fitts's Law redesign: CTA size 180x48px, high contrast -->
+            <button id="confirm-booking-btn" class="btn btn-primary" style="display: none; width: auto; min-width: 220px; height: 3rem;">
+              Confirm Appointment
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 3: LAB RECORDS                        -->
+      <!-- ========================================== -->
+      <section id="records-view" class="view-section">
+        <div class="view-header">
+          <div class="view-title-group">
+            <h1 class="view-main-title">Diagnostic Results & Reports</h1>
+            <span class="view-subtitle">Review your clinical reports. Explanatory tooltips are provided for complex medical jargon.</span>
+          </div>
+          <button class="btn btn-outline" style="width: auto;" onclick="document.querySelector('[data-target=dashboard]').click()">Back to Dashboard</button>
+        </div>
+
+        <div class="lab-report-card">
+          <div class="lab-meta-info">
+            <div class="meta-field">
+              <span class="meta-label">Test Ordered</span>
+              <span class="meta-val">Lipid (Cholesterol) Panel</span>
+            </div>
+            <div class="meta-field">
+              <span class="meta-label">Collection Date</span>
+              <span class="meta-val">May 24, 2026</span>
+            </div>
+            <div class="meta-field">
+              <span class="meta-label">Ordering Physician</span>
+              <span class="meta-val">Dr. Sandra Patel</span>
+            </div>
+            <div class="meta-field">
+              <span class="meta-label">Result Status</span>
+              <span class="meta-val" style="color: var(--error-color); font-weight:700;">Needs Medical Review</span>
+            </div>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <!-- Gestalt Proximity & Visual Indicators Table -->
+            <table class="lab-table" aria-label="Lipid Panel Laboratory Results">
+              <thead>
+                <tr>
+                  <th>Test Marker</th>
+                  <th>Your Value</th>
+                  <th>Status Indicator</th>
+                  <th>Standard Reference Ranges</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Total Cholesterol</td>
+                  <td class="lab-value-text abnormal">210 mg/dL</td>
+                  <td><span class="status-pill pill-danger">Elevated</span></td>
+                  <td>Desirable range: &lt; 200 mg/dL</td>
+                </tr>
+                <tr>
+                  <td>Triglycerides</td>
+                  <td class="lab-value-text">150 mg/dL</td>
+                  <td><span class="status-pill pill-success">Normal</span></td>
+                  <td>Normal range: &lt; 150 mg/dL</td>
+                </tr>
+                <tr>
+                  <td>HDL (Good) Cholesterol</td>
+                  <td class="lab-value-text">48 mg/dL</td>
+                  <td><span class="status-pill pill-success">Optimal</span></td>
+                  <td>Optimal range: &gt; 40 mg/dL</td>
+                </tr>
+                <!-- The specific critical failure trigger flow from scenario 2 -->
+                <tr class="lab-row-abnormal">
+                  <td>
+                    <!-- Accessible visual tooltip resolving Heuristic 2 Match with Real World -->
+                    <div class="jargon-tooltip-wrapper">
+                      <span class="jargon-term" tabindex="0">LDL (Bad) Cholesterol</span>
+                      <span class="tooltip-box">
+                        LDL stands for Low-Density Lipoprotein, often called "bad cholesterol". Elevated levels can accumulate plaques in blood vessel walls, increasing cardiovascular stress.
+                      </span>
+                    </div>
+                  </td>
+                  <td class="lab-value-text abnormal">142 mg/dL</td>
+                  <td><span class="status-pill pill-danger">Elevated</span></td>
+                  <td>Target healthy range: &lt; 100 mg/dL</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Jargon and diagnostic comments box -->
+          <div style="background-color: var(--bg-primary); border-radius: var(--radius-md); padding: 1.25rem; border-left: 4px solid var(--error-color);">
+            <h4 style="font-weight:700; color:var(--text-primary); margin-bottom: 0.5rem; display: flex; align-items:center; gap: 0.5rem;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="color: var(--error-color);">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              Physician's Interpretive Notes
+            </h4>
+            <p style="font-size: 0.95rem; color: var(--text-primary); margin-bottom: 0.5rem;">
+              "Eleanor, your lab lipid panels indicate symptoms of 
+              <strong>
+                <span class="jargon-tooltip-wrapper">
+                  <span class="jargon-term" style="border-bottom-color: var(--error-color);" tabindex="0">Hyperlipidemia</span>
+                  <span class="tooltip-box">
+                    "Hyperlipidemia" simply means you have elevated levels of lipids (fats), like cholesterol, in your blood. It is highly manageable via specialized medication and healthy diet plans.
+                  </span>
+                </span>
+              </strong> 
+              (elevated bad cholesterol). Please proceed to schedule our telehealth review check."
+            </p>
+          </div>
+
+          <!-- Download Action Bar -->
+          <div style="display: flex; gap: 1rem; justify-content: flex-end; flex-wrap: wrap;">
+            <button id="download-report-btn" class="btn btn-outline" style="width: auto;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Download PDF Report
+            </button>
+            <button class="btn btn-primary" style="width: auto;" onclick="document.querySelector('[data-target=booking]').click()">
+              Schedule Lab Review Follow-up
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 4: RENEWALS & BILLING                 -->
+      <!-- ========================================== -->
+      <section id="billing-view" class="view-section">
+        <div class="view-header">
+          <div class="view-title-group">
+            <h1 class="view-main-title">Prescription Renewal & Billing Hub</h1>
+            <span class="view-subtitle">Renew your medication, update insurance cards, and process copay balances.</span>
+          </div>
+          <button class="btn btn-outline" style="width: auto;" onclick="document.querySelector('[data-target=dashboard]').click()">Back to Dashboard</button>
+        </div>
+
+        <div class="split-form-container">
+          
+          <!-- Checkout payment form -->
+          <form id="refill-payment-form" class="form-panel" novalidate>
+            <h3 style="font-weight: 700; border-bottom:1px solid var(--border-color); padding-bottom: 0.5rem;">Renewal & Secure Copayment</h3>
+            
+            <!-- Tesler's Law compliance: autofill profile detail button -->
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size: 0.85rem; color: var(--text-secondary);">Save time by applying pre-registered profile info:</span>
+              <button id="autofill-btn" type="button" class="btn btn-secondary" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.8rem; border-radius: var(--radius-sm);">
+                Apply Profile Details
+              </button>
+            </div>
+
+            <!-- Card Number Input -->
+            <div class="form-group">
+              <label for="cc-number" class="form-label">Payment Credit Card Number (16-digits)</label>
+              <input type="text" id="cc-number" class="form-input" placeholder="4111 2222 3333 4444" required maxlength="19" aria-describedby="cc-error">
+              <span id="cc-error" class="error-message">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="margin-right: 0.25rem;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                Please enter a valid, 16-digit credit card number.
+              </span>
+            </div>
+
+            <!-- Zip Code Input -->
+            <div class="form-group">
+              <label for="zip-code" class="form-label">Billing Zip Code</label>
+              <input type="text" id="zip-code" class="form-input" placeholder="90210" required maxlength="5" aria-describedby="zip-error">
+              <span id="zip-error" class="error-message">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="margin-right: 0.25rem;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                Billing zip code must be exactly 5 numeric digits.
+              </span>
+            </div>
+
+            <!-- Insurance Selector -->
+            <div class="form-group">
+              <label for="insurance-carrier" class="form-label">Select Active Insurance Carrier</label>
+              <select id="insurance-carrier" class="form-input" required aria-describedby="insurance-error">
+                <option value="">-- Choose Provider from List --</option>
+                <option value="aurashield">AuraShield Blue (Medicare Advantage)</option>
+                <option value="statehealth">Statewide Healthcare Mutual</option>
+                <option value="clinicalmutual">Clinical Mutual Care</option>
+                <option value="uninsured">Self-Pay / No Insurance coverage</option>
+              </select>
+              <span id="insurance-error" class="error-message">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="margin-right: 0.25rem;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                Please select a valid insurance carrier.
+              </span>
+            </div>
+
+            <!-- Submission button -->
+            <button id="submit-payment-btn" type="submit" class="btn btn-primary" style="height: 3rem; font-size: 1.05rem; margin-top: 1rem;">
+              Submit Refill & Payment ($15.00)
+            </button>
+          </form>
+
+          <!-- Side details display -->
+          <div style="display:flex; flex-direction:column; gap: 1.5rem;">
+            
+            <div class="form-panel" style="box-shadow: none; border-color: var(--border-color);">
+              <h3 style="font-weight: 700; border-bottom:1px solid var(--border-color); padding-bottom: 0.5rem;">Refill Transaction Summary</h3>
+              
+              <div class="summary-panel">
+                <div class="summary-row">
+                  <span>Prescription Item:</span>
+                  <strong>Lisinopril 10mg (30-Day Supply)</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Dosage Instructions:</span>
+                  <span>1 tablet daily for blood pressure control</span>
+                </div>
+                <div class="summary-row">
+                  <span>Pharmacy Dispatch Clinic:</span>
+                  <span>AuraHealth Pharmacy #02</span>
+                </div>
+              </div>
+
+              <div class="summary-panel" style="background-color: var(--bg-primary); border-left-color: var(--secondary-color);">
+                <div class="summary-row">
+                  <span>Retail Price:</span>
+                  <span style="text-decoration: line-through;">$78.00</span>
+                </div>
+                <div class="summary-row">
+                  <span>Insurance Discount:</span>
+                  <span style="color: var(--success-color); font-weight:600;">-$63.00</span>
+                </div>
+                <div class="summary-row total">
+                  <span>Your Copay Balance:</span>
+                  <span>$15.00</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="app-footer">
+      <p>&copy; 2026 AuraHealth Care Systems Inc. | All rights reserved. | HIPAA Encrypted | Version 2.4.0</p>
+    </footer>
+
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL / OVERLAY LIGHTBOX CONTAINERS        -->
+  <!-- ========================================== -->
+  
+  <!-- Loading overlay spinner (Doherty Threshold principle) -->
+  <div id="loading-overlay" class="loading-overlay" role="dialog" aria-modal="true" aria-labelledby="loading-text-info">
+    <div class="loading-content">
+      <div class="spinner"></div>
+      <div id="loading-text-info" class="loading-text">Processing your checkout...</div>
+    </div>
+  </div>
+
+  <!-- Success confirm Modal (Heuristic 9 Help users recognize, diagnose, and recover) -->
+  <div id="success-modal" class="success-modal" role="dialog" aria-modal="true" aria-labelledby="success-modal-title">
+    <div class="success-card">
+      <div class="success-icon" aria-hidden="true">✓</div>
+      <h2 id="success-modal-title" style="font-weight: 800; font-size: 1.5rem; margin-bottom: 0.75rem; color: var(--text-primary);">Operation Successful</h2>
+      <div id="success-modal-body" style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 2rem;">
+        Your request has been filed.
+      </div>
+      <button id="success-modal-close" class="btn btn-primary" style="height: 2.8rem;">Dismiss and Return</button>
+    </div>
+  </div>
+
+  <!-- App logic JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>
